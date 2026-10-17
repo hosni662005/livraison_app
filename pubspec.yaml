@@ -1,0 +1,38 @@
+name: livraison_app
+description: "Application de livraison multi-roles - Groupe 7 | Flutter + Firebase"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=3.2.0 <4.0.0"
+  flutter: ">=3.16.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Firebase - versions compatibles Flutter 3.47 / Dart 3.13
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.0
+  cloud_firestore: ^5.6.0
+
+  # State management
+  provider: ^6.1.1
+
+  # Navigation
+  go_router: ^14.6.1
+
+  # Utils
+  intl: ^0.19.0
+  url_launcher: ^6.2.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  flutter_launcher_icons: ^0.13.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "435939103903",
+    "project_id": "livraison-c1d35",
+    "storage_bucket": "livraison-c1d35.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435939103903:android:0083b9ad445a589ddb7eaa",
+        "android_client_info": {
+          "package_name": "com.groupe7.livraison.livraison_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6bs1Tjmi03ImaUWmsHPKho1Hd7_6QXWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:435939103903:android:0abaa461e40f6097db7eaa",
+        "android_client_info": {
+          "package_name": "com.livraison.group7"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6bs1Tjmi03ImaUWmsHPKho1Hd7_6QXWc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

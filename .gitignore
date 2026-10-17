@@ -1,0 +1,35 @@
+# ---> Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+.pub-cache/
+.pub/
+
+# ---> Firebase
+lib/firebase_options.dart.bak
+.firebase/
+functions/node_modules/
+
+# ---> IDE
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# ---> OS
+.DS_Store
+Thumbs.db
+
+# ---> Env
+.env
+
+# temp extraction
+extract.py
+extract_output.txt
+
+# ---> Assets generated
+*.g.dart
+*.freezed.dart

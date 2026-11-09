@@ -17,6 +17,7 @@ class _UsersScreenState extends State<UsersScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<AdminProvider>().listenUsers();
+      context.read<AdminProvider>().listenDemandes();
     });
   }
 
@@ -26,6 +27,18 @@ class _UsersScreenState extends State<UsersScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Utilisateurs'),
+        actions: [
+          IconButton(
+            tooltip: 'Demandes en attente',
+            icon: prov.demandes.isNotEmpty
+                ? Badge(
+                    label: Text('${prov.demandes.length}'),
+                    child: const Icon(Icons.assignment_ind_outlined),
+                  )
+                : const Icon(Icons.assignment_ind_outlined),
+            onPressed: () => context.go('/admin/demandes'),
+          ),
+        ],
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(48),
           child: Padding(

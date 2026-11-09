@@ -29,6 +29,14 @@ class UserRepository {
   Future<void> updateRole(String uid, UserRole role) =>
       _col.doc(uid).update({'role': role.value});
 
+  Future<void> updateDemandeStatut(String uid, {required String statut, required bool actif}) =>
+      _col.doc(uid).update({'statutDemande': statut, 'actif': actif});
+
+  Stream<List<AppUser>> streamDemandes() => _col
+      .where('statutDemande', isEqualTo: 'enAttente')
+      .snapshots()
+      .map((s) => s.docs.map((d) => AppUser.fromMap(d.id, d.data())).toList());
+
   Future<void> updateProfile(String uid, {String? nom, String? telephone, String? photoUrl}) {
     final m = <String, dynamic>{};
     if (nom != null) m['nom'] = nom;

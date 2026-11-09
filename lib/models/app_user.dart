@@ -25,6 +25,11 @@ class AppUser {
   final bool actif;
   final String? photoUrl;
   final DateTime dateCreation;
+  final String? statutDemande; // 'enAttente', 'validee', 'refusee'
+  final String? vehicule; // pour livreur (ex: Moto, Vélo, Voiture)
+  final String? zoneLivraison; // pour livreur (ville ou zone)
+  final String? nomRestaurant; // pour restaurant / vendeur
+  final String? adresseRestaurant; // pour restaurant / vendeur
 
   const AppUser({
     required this.id,
@@ -35,6 +40,11 @@ class AppUser {
     required this.actif,
     this.photoUrl,
     required this.dateCreation,
+    this.statutDemande,
+    this.vehicule,
+    this.zoneLivraison,
+    this.nomRestaurant,
+    this.adresseRestaurant,
   });
 
   factory AppUser.fromMap(String id, Map<String, dynamic> m) {
@@ -47,6 +57,11 @@ class AppUser {
       actif: m['actif'] as bool? ?? true,
       photoUrl: m['photoUrl'] as String?,
       dateCreation: _toDate(m['dateCreation']),
+      statutDemande: m['statutDemande'] as String?,
+      vehicule: m['vehicule'] as String?,
+      zoneLivraison: m['zoneLivraison'] as String?,
+      nomRestaurant: m['nomRestaurant'] as String?,
+      adresseRestaurant: m['adresseRestaurant'] as String?,
     );
   }
 
@@ -58,6 +73,11 @@ class AppUser {
         'actif': actif,
         'photoUrl': photoUrl,
         'dateCreation': Timestamp.fromDate(dateCreation),
+        if (statutDemande != null) 'statutDemande': statutDemande,
+        if (vehicule != null) 'vehicule': vehicule,
+        if (zoneLivraison != null) 'zoneLivraison': zoneLivraison,
+        if (nomRestaurant != null) 'nomRestaurant': nomRestaurant,
+        if (adresseRestaurant != null) 'adresseRestaurant': adresseRestaurant,
       };
 
   AppUser copyWith({
@@ -68,6 +88,11 @@ class AppUser {
     bool? actif,
     String? photoUrl,
     DateTime? dateCreation,
+    String? statutDemande,
+    String? vehicule,
+    String? zoneLivraison,
+    String? nomRestaurant,
+    String? adresseRestaurant,
   }) =>
       AppUser(
         id: id,
@@ -78,6 +103,11 @@ class AppUser {
         actif: actif ?? this.actif,
         photoUrl: photoUrl ?? this.photoUrl,
         dateCreation: dateCreation ?? this.dateCreation,
+        statutDemande: statutDemande ?? this.statutDemande,
+        vehicule: vehicule ?? this.vehicule,
+        zoneLivraison: zoneLivraison ?? this.zoneLivraison,
+        nomRestaurant: nomRestaurant ?? this.nomRestaurant,
+        adresseRestaurant: adresseRestaurant ?? this.adresseRestaurant,
       );
 
   static DateTime _toDate(dynamic v) {

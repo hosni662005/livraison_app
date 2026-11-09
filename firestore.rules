@@ -8,14 +8,19 @@ service cloud.firestore {
     function isActive() { return myDoc().data.actif == true; }
     function isAdmin() { return isAuth() && isActive() && myRole() == 'admin'; }
 
-    // ── users ── RG-01 : création publique => role client uniquement
+    // ── users ── Inscription client directe OU candidature livreur/vendeur en attente
     match /users/{uid} {
-      allow read: if isAuth() && isActive();
-      allow create: if isAuth()
-                    && request.resource.data.role == 'client'
-                    && request.resource.data.actif == true;
-      allow update: if isAuth() && isActive()
-                    && (request.auth.uid == uid || isAdmin());
+      allow read: if isAuth() && (request.auth.uid == uid || isActive());
+      allow create: if isAuth() && (
+        (request.resource.data.role == 'client' && request.resource.data.actif == true)
+        || (request.resource.data.role in ['livreur', 'vendeur']
+            && request.resource.data.actif == false
+            && request.resource.data.statutDemande == 'enAttente')
+      );
+      allow update: if isAuth() && (
+        isAdmin()
+        || (isActive() && request.auth.uid == uid)
+      );
       allow delete: if isAdmin();
     }
 

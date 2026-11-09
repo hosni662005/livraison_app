@@ -48,11 +48,17 @@ class AuthProvider extends ChangeNotifier {
         appUser = null;
         status = AuthStatus.unauthenticated;
       } else if (!u.actif) {
-        // RG-02 : compte désactivé
+        // RG-02 : compte désactivé ou en attente d'approbation
         await _authService.logout();
         appUser = null;
         status = AuthStatus.unauthenticated;
-        error = 'Votre compte a été désactivé. Contactez l\'administrateur.';
+        if (u.statutDemande == 'enAttente') {
+          error = 'Votre demande est en cours de validation par l\'administrateur.';
+        } else if (u.statutDemande == 'refusee') {
+          error = 'Votre demande a été refusée par l\'administrateur.';
+        } else {
+          error = 'Votre compte a été désactivé. Contactez l\'administrateur.';
+        }
       } else {
         appUser = u;
         status = AuthStatus.authenticated;
@@ -90,6 +96,100 @@ class AuthProvider extends ChangeNotifier {
       await _userRepo.createUser(newUser);
       appUser = newUser;
       status = AuthStatus.authenticated;
+      notifyListeners();
+      return true;
+    } on FirebaseAuthException catch (e) {
+      error = _mapAuthError(e);
+      status = AuthStatus.error;
+      notifyListeners();
+      return false;
+    } catch (e) {
+      error = e.toString();
+      status = AuthStatus.error;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  /// Inscription candidat Livreur (soumise à validation Admin)
+  Future<bool> registerLivreur({
+    required String nom,
+    required String email,
+    required String telephone,
+    required String password,
+    required String vehicule,
+    String? zoneLivraison,
+  }) async {
+    status = AuthStatus.loading;
+    error = null;
+    notifyListeners();
+    try {
+      final cred = await _authService.register(email, password);
+      final uid = cred.user!.uid;
+      final newUser = AppUser(
+        id: uid,
+        nom: nom.trim(),
+        email: email.trim(),
+        telephone: telephone.trim(),
+        role: UserRole.livreur,
+        actif: false,
+        statutDemande: 'enAttente',
+        vehicule: vehicule.trim(),
+        zoneLivraison: zoneLivraison?.trim(),
+        dateCreation: DateTime.now(),
+      );
+      await _userRepo.createUser(newUser);
+      // Déconnexion immédiate car le compte requiert l'approbation de l'admin
+      await _authService.logout();
+      appUser = null;
+      status = AuthStatus.unauthenticated;
+      notifyListeners();
+      return true;
+    } on FirebaseAuthException catch (e) {
+      error = _mapAuthError(e);
+      status = AuthStatus.error;
+      notifyListeners();
+      return false;
+    } catch (e) {
+      error = e.toString();
+      status = AuthStatus.error;
+      notifyListeners();
+      return false;
+    }
+  }
+
+  /// Inscription candidat Restaurant / Vendeur (soumise à validation Admin)
+  Future<bool> registerRestaurant({
+    required String nomResponsable,
+    required String nomRestaurant,
+    required String email,
+    required String telephone,
+    required String password,
+    required String adresseRestaurant,
+  }) async {
+    status = AuthStatus.loading;
+    error = null;
+    notifyListeners();
+    try {
+      final cred = await _authService.register(email, password);
+      final uid = cred.user!.uid;
+      final newUser = AppUser(
+        id: uid,
+        nom: nomResponsable.trim(),
+        email: email.trim(),
+        telephone: telephone.trim(),
+        role: UserRole.vendeur,
+        actif: false,
+        statutDemande: 'enAttente',
+        nomRestaurant: nomRestaurant.trim(),
+        adresseRestaurant: adresseRestaurant.trim(),
+        dateCreation: DateTime.now(),
+      );
+      await _userRepo.createUser(newUser);
+      // Déconnexion immédiate car le compte requiert l'approbation de l'admin
+      await _authService.logout();
+      appUser = null;
+      status = AuthStatus.unauthenticated;
       notifyListeners();
       return true;
     } on FirebaseAuthException catch (e) {

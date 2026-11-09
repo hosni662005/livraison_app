@@ -7,6 +7,8 @@ import '../models/app_user.dart';
 import '../screens/auth/login_screen.dart';
 import '../screens/auth/register_screen.dart';
 import '../screens/auth/forgot_password_screen.dart';
+import '../screens/auth/candidature_livreur_screen.dart';
+import '../screens/auth/candidature_restaurant_screen.dart';
 import '../screens/common/splash_screen.dart';
 import '../screens/common/profile_screen.dart';
 import '../screens/common/unauthorized_screen.dart';
@@ -36,6 +38,7 @@ import '../screens/livreur/delivery_detail_screen.dart';
 
 // Admin
 import '../screens/admin/admin_home.dart';
+import '../screens/admin/demandes_screen.dart';
 import '../screens/admin/users_screen.dart';
 import '../screens/admin/all_orders_screen.dart';
 import '../screens/admin/stats_screen.dart';
@@ -46,7 +49,13 @@ GoRouter createRouter(AuthProvider auth) {
     refreshListenable: auth,
     redirect: (ctx, state) {
       final loc = state.matchedLocation;
-      final isAuthRoute = ['/login', '/register', '/forgot'].contains(loc);
+      final isAuthRoute = [
+        '/login',
+        '/register',
+        '/forgot',
+        '/candidature-livreur',
+        '/candidature-restaurant',
+      ].contains(loc);
       final isSplash = loc == '/';
 
       // Encore en chargement initial — on reste sur Splash
@@ -81,6 +90,8 @@ GoRouter createRouter(AuthProvider auth) {
       GoRoute(path: '/', builder: (_, __) => const SplashScreen()),
       GoRoute(path: '/login', builder: (_, __) => const LoginScreen()),
       GoRoute(path: '/register', builder: (_, __) => const RegisterScreen()),
+      GoRoute(path: '/candidature-livreur', builder: (_, __) => const CandidatureLivreurScreen()),
+      GoRoute(path: '/candidature-restaurant', builder: (_, __) => const CandidatureRestaurantScreen()),
       GoRoute(path: '/forgot', builder: (_, __) => const ForgotPasswordScreen()),
       GoRoute(path: '/unauthorized', builder: (_, __) => const UnauthorizedScreen()),
       GoRoute(path: '/profile', builder: (_, __) => const ProfileScreen()),
@@ -126,7 +137,8 @@ GoRouter createRouter(AuthProvider auth) {
       ShellRoute(
         builder: (_, __, child) => AdminHome(child: child),
         routes: [
-          GoRoute(path: '/admin', builder: (_, __) => const UsersScreen()),
+          GoRoute(path: '/admin', builder: (_, __) => const DemandesScreen()),
+          GoRoute(path: '/admin/demandes', builder: (_, __) => const DemandesScreen()),
           GoRoute(path: '/admin/users', builder: (_, __) => const UsersScreen()),
           GoRoute(path: '/admin/orders', builder: (_, __) => const AllOrdersScreen()),
           GoRoute(path: '/admin/orders/:id', builder: (_, s) => OrderDetailScreen(orderId: s.pathParameters['id']!)),

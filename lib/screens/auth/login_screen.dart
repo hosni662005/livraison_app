@@ -83,6 +83,28 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 OutlinedButton(onPressed: () => context.go('/register'), child: const Text("Créer un compte client")),
+                const SizedBox(height: 24),
+                const Row(
+                  children: [
+                    Expanded(child: Divider()),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      child: Text('Rejoignez notre réseau', style: TextStyle(color: Colors.grey, fontSize: 13)),
+                    ),
+                    Expanded(child: Divider()),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                TextButton.icon(
+                  onPressed: () => context.go('/candidature-livreur'),
+                  icon: const Icon(Icons.two_wheeler, size: 20),
+                  label: const Text('Souhaitez-vous devenir livreur avec nous ?', textAlign: TextAlign.center),
+                ),
+                TextButton.icon(
+                  onPressed: () => context.go('/candidature-restaurant'),
+                  icon: const Icon(Icons.restaurant, size: 20),
+                  label: const Text('Souhaitez-vous devenir restaurant partenaire ?', textAlign: TextAlign.center),
+                ),
               ]),
             ),
           ),

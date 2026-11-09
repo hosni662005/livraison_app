@@ -32,9 +32,13 @@ import '../screens/vendeur/order_manage_screen.dart';
 
 // Livreur
 import '../screens/livreur/livreur_home.dart';
+import '../screens/livreur/livreur_dashboard_screen.dart';
 import '../screens/livreur/available_orders_screen.dart';
 import '../screens/livreur/my_deliveries_screen.dart';
 import '../screens/livreur/delivery_detail_screen.dart';
+import '../screens/livreur/livreur_history_screen.dart';
+import '../screens/livreur/livreur_gains_screen.dart';
+import '../screens/livreur/livreur_profile_screen.dart';
 
 // Admin
 import '../screens/admin/admin_home.dart';
@@ -126,10 +130,15 @@ GoRouter createRouter(AuthProvider auth) {
       ShellRoute(
         builder: (_, __, child) => LivreurHome(child: child),
         routes: [
-          GoRoute(path: '/livreur', builder: (_, __) => const AvailableOrdersScreen()),
+          GoRoute(path: '/livreur', builder: (_, __) => const LivreurDashboardScreen()),
+          GoRoute(path: '/livreur/dashboard', builder: (_, __) => const LivreurDashboardScreen()),
           GoRoute(path: '/livreur/available', builder: (_, __) => const AvailableOrdersScreen()),
+          GoRoute(path: '/livreur/en-cours', builder: (_, __) => const MyDeliveriesScreen()),
           GoRoute(path: '/livreur/deliveries', builder: (_, __) => const MyDeliveriesScreen()),
           GoRoute(path: '/livreur/deliveries/:id', builder: (_, s) => DeliveryDetailScreen(orderId: s.pathParameters['id']!)),
+          GoRoute(path: '/livreur/history', builder: (_, __) => const LivreurHistoryScreen()),
+          GoRoute(path: '/livreur/gains', builder: (_, __) => const LivreurGainsScreen()),
+          GoRoute(path: '/livreur/profile', builder: (_, __) => const LivreurProfileScreen()),
         ],
       ),
 

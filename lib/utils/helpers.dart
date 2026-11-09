@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'constants.dart';
 
-String fmtPrice(double v) => '${v.toStringAsFixed(2)} TND';
+String fmtPrice(double v) {
+  final isInt = v.truncateToDouble() == v;
+  return '${isInt ? v.toInt() : v.toStringAsFixed(2)} ${AppConstants.devises}';
+}
 String fmtDate(DateTime d) => DateFormat('dd/MM/yyyy HH:mm').format(d);
 
 void showSnack(BuildContext ctx, String msg, {bool error = false}) {

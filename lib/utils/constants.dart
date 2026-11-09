@@ -5,5 +5,5 @@ class AppConstants {
     products: 'products',
     orders: 'orders',
   );
-  static const devises = 'TND';
+  static const devises = 'DA';
 }

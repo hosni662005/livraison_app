@@ -46,7 +46,7 @@ class LivraisonApp extends StatelessWidget {
                 brightness: Brightness.light,
               ),
               scaffoldBackgroundColor: const Color(0xFFF8F9FA),
-              cardTheme: CardTheme(
+              cardTheme: CardThemeData(
                 elevation: 1,
                 surfaceTintColor: Colors.transparent,
                 shape: RoundedRectangleBorder(

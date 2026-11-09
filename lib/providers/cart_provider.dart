@@ -20,6 +20,16 @@ class CartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void addWithQuantity(Product product, int quantity) {
+    final idx = _items.indexWhere((e) => e.product.id == product.id);
+    if (idx >= 0) {
+      _items[idx].quantite += quantity;
+    } else {
+      _items.add(CartItem(product: product, quantite: quantity));
+    }
+    notifyListeners();
+  }
+
   void remove(String productId) {
     _items.removeWhere((e) => e.product.id == productId);
     notifyListeners();

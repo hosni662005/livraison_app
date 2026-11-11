@@ -177,7 +177,7 @@ class _LivreurHistoryScreenState extends State<LivreurHistoryScreen> {
                               itemBuilder: (context, i) {
                                 final o = filtered[i];
                                 final isLivree = o.statut == OrderStatus.livree;
-                                final gainsCourse = o.total > 0 ? o.total * 0.2 + 200 : 250;
+                                final gainsCourse = o.total > 0 ? o.total * 0.2 + 200 : 250.0;
 
                                 return Card(
                                   shape: RoundedRectangleBorder(

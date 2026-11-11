@@ -193,7 +193,7 @@ class _LivreurGainsScreenState extends State<LivreurGainsScreen> {
                     )
                   else
                     ...deliveredOrders.take(10).map((o) {
-                      final fee = o.total > 0 ? o.total * 0.2 + 200 : 250;
+                      final fee = o.total > 0 ? o.total * 0.2 + 200 : 250.0;
                       return Card(
                         margin: const EdgeInsets.only(bottom: 8),
                         child: ListTile(
